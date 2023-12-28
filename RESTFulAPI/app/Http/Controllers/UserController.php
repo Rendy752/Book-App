@@ -16,7 +16,7 @@ class UserController extends Controller
             'password' => 'required'
         ]);
         if (!auth()->attempt($loginData))
-            return response()->json(['message' => 'Login Failed', 'error' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Login Failed', 'error' => 'Username or Password Incorrect'], 401);
 
         $token = auth()->user()->createToken('token')->accessToken;
         return response()->json(['message' => 'Login Success', 'success' => $token], 200);
@@ -43,22 +43,10 @@ class UserController extends Controller
         return response()->json(['message' => 'Registration Success'], 200);
     }
 
-    // function logout()
-    // {
-    //     if (Auth::check()) {
-    //         Auth::user()->token()->revoke();
-    //         return response()->json(['message' => 'Logout Success'], 200);
-    //     } else {
-    //         return response()->json(['message' => 'Unauthorized'], 401);
-    //     }
-
-    // }
-
-    public function logout(Request $request)
+    public function logout()
     {
         if (Auth::check()) {
-            $token = Auth::user()->token();
-            $token->revoke();
+            Auth::user()->token()->revoke();
             return response()->json(['message' => 'Logout Success'], 200);
         } else {
             return response()->json(['message' => 'Unauthorized'], 401);

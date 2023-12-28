@@ -11,7 +11,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return response()->json(['data' => $products], 200);
+        return response()->json(['message' => 'All Product Found', 'data' => $products], 200);
     }
 
     public function store(Request $request)
@@ -31,7 +31,7 @@ class ProductController extends Controller
         $product = Product::create($request->all());
 
         return response()->json([
-            'message' => 'Product Successfully Added',
+            'message' => 'Product Added',
             'data' => $product
         ], 200);
     }
@@ -41,10 +41,10 @@ class ProductController extends Controller
         $product = Product::find($id);
         return empty($product) ?
             response()->json([
-                'message' => 'Product not found',
+                'message' => 'Product Not Found',
             ], 404) :
             response()->json([
-                'message' => 'Product found',
+                'message' => 'Product Found',
                 'data' => $product
             ], 200);
     }
@@ -67,11 +67,11 @@ class ProductController extends Controller
             $product->update($request->all());
 
             return response()->json([
-                'message' => 'Product updated',
+                'message' => 'Product Updated',
             ], 202);
         } else {
             return response()->json([
-                'message' => 'Product not found',
+                'message' => 'Product Not Found',
             ], 404);
         }
     }
@@ -83,11 +83,11 @@ class ProductController extends Controller
             $product->delete();
 
             return response()->json([
-                'message' => 'Product deleted'
+                'message' => 'Product Deleted'
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Product not found',
+                'message' => 'Product Not Found',
             ], 404);
         }
     }
