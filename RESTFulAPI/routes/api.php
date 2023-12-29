@@ -16,7 +16,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/product/{id}', [ProductController::class, 'update']);
     Route::delete('/product/{id}', [ProductController::class, 'destroy']);
 
-    Route::get('/logout', [UserController::class, 'logout']);
+    Route::delete('/logout', [UserController::class, 'logout']);
     Route::get('/profile', [UserController::class, 'profile']);
 });
 

@@ -33,7 +33,7 @@ class UserController extends Controller
             'confirm_password' => 'required|same:password',
         ]);
         if ($validator->fails()) {
-            return response()->json(['message' => 'Registration Failed', 'error' => $validator->errors()], 401);
+            return response()->json(['message' => 'Registration Failed', 'error' => $validator->errors()], 422);
         }
         $registerData = $request->all();
         $registerData['password'] = bcrypt($registerData['password']);
