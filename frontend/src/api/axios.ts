@@ -3,7 +3,9 @@ import Axios from 'axios';
 const headers = {
   Accept: 'application/json',
   'Content-type': 'application/json',
-  Authorization: `Bearer ${localStorage.getItem('token')}`,
+  Authorization: `Bearer ${
+    typeof window !== 'undefined' ? window.localStorage.getItem('token') : ''
+  }`,
   'Access-Control-Allow-Origin': 'http://127.0.0.1:3000',
   // 'Access-Control-Allow-Credentials': true,
 

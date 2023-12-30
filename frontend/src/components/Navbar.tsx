@@ -8,7 +8,7 @@ import {
   UserIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import SearchBar from './SearchBar';
 
 const navigation = [{ name: 'Books', href: '/', current: true }];
@@ -42,7 +42,7 @@ export default function Navbar() {
                     {navigation.map((item) => (
                       <Link
                         key={item.name}
-                        to={item.href}
+                        href={item.href}
                         className={classNames(
                           item.current
                             ? 'bg-gray-900 text-white'
@@ -88,7 +88,7 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="/login"
+                            href="/login"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700',
@@ -101,7 +101,7 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="/profile"
+                            href="/profile"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700',
@@ -114,7 +114,7 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            to="/"
+                            href="/"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700',

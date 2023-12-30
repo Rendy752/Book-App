@@ -1,48 +1,39 @@
-'use client';
 import Link from 'next/link';
 import { useState } from 'react';
-// import { useAuth } from '../../../hooks/auth';
 import Preloader from '@/components/Preloader';
-import Errors from '@/components/Errors';
-import { TError } from '@/types/Types';
-import { getBooks, setLogin } from '@/api/services';
-import { useRouter } from 'next/navigation';
+import { Errors } from '@/components/Errors';
+import { IError } from '@/types/Types';
+import { setLogin } from '@/api/services';
 
 export default function Login() {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<TError>({ message: '' });
-
-  //   const handleSetMainError = (message: string) => {
-  //     setMainError({ message: message });
-  //   };
-
-  //   const handleSetBodyError = (message: string) => {
-  //     setBodyError({ message: message, errors: [] });
-  //   };
-  //   const { loading, isLoading, user } = useAuth({ middleware: 'guest' });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<IError>({ message: '' });
 
   const handleSignIn = async (e: any) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const res = await setLogin(email, password);
-      console.log(res);
-      router.push('/');
+      setError((prev) => ({ ...prev, message: '' }));
+      setIsLoading(false);
+      //   console.log(res);
     } catch (e: any) {
-      console.log(e);
-      setError({ message: e });
+      setIsLoading(false);
+      setError((prev) => ({ ...prev, message: e }));
     }
   };
 
-  //   if (isLoading || user) return <Preloader></Preloader>;
   return (
     <div className="w-full p-6 bg-white rounded-md shadow-md lg:max-w-xl">
       <h1 className="text-3xl font-bold text-center text-gray-700">Login</h1>
       <form className="mt-6" onSubmit={handleSignIn}>
-        <div className="mb-4">
-          <Errors error={error}></Errors>
-        </div>
+        {error.message && (
+          <div className="mb-4">
+            <Errors error={error.message}></Errors>
+          </div>
+        )}
         <div className="mb-4">
           <label
             htmlFor="email"
@@ -73,12 +64,16 @@ export default function Login() {
           />
         </div>
         <div className="mt-2">
-          <button
-            type="submit"
-            className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-          >
-            Login
-          </button>
+          {isLoading ? (
+            <Preloader></Preloader>
+          ) : (
+            <button
+              type="submit"
+              className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+            >
+              Login
+            </button>
+          )}
         </div>
       </form>
 

@@ -4,7 +4,7 @@ export default function Preloader() {
   return (
     <button
       type="button"
-      className="bg-indigo-500 flex p-3 rounded-md"
+      className="w-full bg-gray-700 text-white flex p-3 rounded-md justify-center"
       disabled
     >
       <svg
@@ -19,7 +19,7 @@ export default function Preloader() {
           cy="12"
           r="10"
           stroke="currentColor"
-          stroke-width="4"
+          strokeWidth="4"
         ></circle>
         <path
           className="opacity-75"

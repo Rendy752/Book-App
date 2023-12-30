@@ -17,6 +17,6 @@ export type TBook = {
   website: string;
 };
 
-export type TError = {
+export interface IError {
   message: string;
-};
+}

@@ -22,31 +22,28 @@ export const setLogin = async (email: string, password: string) => {
     );
     // console.log(res);
     localStorage.setItem('token', res.data.token);
-    redirect('/');
+    return Promise.resolve(res.data);
   } catch (e: unknown) {
     if (e instanceof AxiosError) {
       // const status = e.response!.status;
       // const code = e.code;
       const message = e.response!.data.message;
       // console.log(e, status, code, message);
-      return message;
+      return Promise.reject(message);
     }
-    return e;
+    return Promise.reject(e);
   }
 };
 
 export const getBooks = async () => {
-  console.log(localStorage.getItem('token'));
-  // console.log(api);
   try {
     const res = await axios.get(
       process.env.NEXT_PUBLIC_BACKEND_URL + ENDPOINT.books,
       { headers },
     );
-    console.log(res);
-    console.log(res.data);
-    return res.data;
-  } catch (err) {
-    return false;
+    // console.log(res);
+    return Promise.resolve(res.data);
+  } catch (e) {
+    return Promise.reject(e);
   }
 };
