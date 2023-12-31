@@ -25,3 +25,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+html {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+display: none;
+}

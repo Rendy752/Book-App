@@ -67,35 +67,37 @@ export default function Register() {
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
           />
         </div>
-        <div className="mb-2">
-          <label
-            htmlFor="password"
-            className="block text-sm font-semibold text-gray-800"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-          />
-        </div>
-        <div className="mb-2">
-          <label
-            htmlFor="passwordConfirmation"
-            className="block text-sm font-semibold text-gray-800"
-          >
-            Confirm Password
-          </label>
-          <input
-            type="passwordConfirmation"
-            id="passwordConfirmation"
-            value={passwordConfirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
-            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-          />
+        <div className="flex justify-between gap-2">
+          <div className="mb-2 w-full">
+            <label
+              htmlFor="password"
+              className="block text-sm font-semibold text-gray-800"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            />
+          </div>
+          <div className="mb-2 w-full">
+            <label
+              htmlFor="passwordConfirmation"
+              className="block text-sm font-semibold text-gray-800"
+            >
+              Confirm Password
+            </label>
+            <input
+              type="passwordConfirmation"
+              id="passwordConfirmation"
+              value={passwordConfirmation}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            />
+          </div>
         </div>
         <div className="mt-2">
           {isLoading ? (

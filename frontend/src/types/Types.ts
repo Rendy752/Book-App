@@ -5,7 +5,9 @@ export type TUser = {
 };
 
 export type TBook = {
-  isbn: string;
+  id: number;
+  user_id: number;
+  isbn: number;
   title: string;
   subtitle: string;
   author: string;
@@ -14,6 +16,8 @@ export type TBook = {
   pages: number;
   description: string;
   website: string;
+  created_at: string;
+  updated_at: string;
 };
 
 export interface IError {

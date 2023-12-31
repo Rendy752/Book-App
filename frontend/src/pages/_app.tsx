@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import '../../styles/global.css';
 import { useRouter } from 'next/navigation';
-import { getBooks, getProfile } from '@/api/services';
+import { getProfile } from '@/api/services';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { TUser } from '@/types/Types';
@@ -19,7 +19,6 @@ export default function App({ Component, pageProps }: any) {
     const checkLogin = async () => {
       try {
         const res = await getProfile();
-        setUser(res.user);
         setUser((prev) => ({
           ...prev,
           id: res.id,
