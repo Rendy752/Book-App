@@ -1,8 +1,7 @@
 export type TUser = {
+  id: number;
+  name: string;
   email: string;
-  password: string;
-  username: string;
-  password_confim: string;
 };
 
 export type TBook = {

@@ -4,22 +4,23 @@ import Preloader from '@/components/Preloader';
 import { Errors } from '@/components/Errors';
 import { IError } from '@/types/Types';
 import { setLogin } from '@/api/services';
-import '../app/globals.css';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<IError>({ message: '' });
+  const router = useRouter();
 
   const handleSignIn = async (e: any) => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const res = await setLogin(email, password);
+      await setLogin(email, password);
       setError((prev) => ({ ...prev, message: '' }));
       setIsLoading(false);
-      //   console.log(res);
+      router.replace('/');
     } catch (e: any) {
       setIsLoading(false);
       setError((prev) => ({ ...prev, message: e }));
