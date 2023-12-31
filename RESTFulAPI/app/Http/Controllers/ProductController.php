@@ -10,8 +10,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-        return response()->json(['message' => 'All Product Found', 'data' => $products], 200);
+        $products = Product::where('user_id', auth()->user()->id)->get();
+        return response()->json(['message' => 'All Product Founded', 'data' => $products], 200);
     }
 
     public function store(Request $request)
@@ -28,10 +28,15 @@ class ProductController extends Controller
                 'error' => $validator->errors()
             ], 422);
 
-        $product = Product::create($request->all());
+        $product = Product::create([
+            'user_id' => auth()->user()->id,
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock
+        ]);
 
         return response()->json([
-            'message' => 'Product Added',
+            'message' => 'Product Successfully Added',
             'data' => $product
         ], 200);
     }
@@ -39,20 +44,29 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return empty($product) ?
-            response()->json([
+        if (empty($product)) {
+            return response()->json([
                 'message' => 'Product Not Found',
-            ], 404) :
-            response()->json([
-                'message' => 'Product Found',
-                'data' => $product
-            ], 200);
+            ], 404);
+        } else {
+            return $product->user_id === auth()->user()->id ?
+                response()->json([
+                    'message' => 'Product Successfully Founded',
+                    'data' => $product
+                ], 200) : response()->json([
+                            'message' => 'Access Forbidden',
+                        ], 403);
+        }
     }
 
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
-        if (!empty($product)) {
+        if ($product->user_id !== auth()->user()->id) {
+            return response()->json([
+                'message' => 'Access Forbidden',
+            ], 403);
+        } else if (!empty($product)) {
             $validator = Validator::make($request->all(), [
                 'price' => 'numeric | min:1000',
                 'stock' => 'numeric | min:0',
@@ -67,8 +81,8 @@ class ProductController extends Controller
             $product->update($request->all());
 
             return response()->json([
-                'message' => 'Product Updated',
-            ], 202);
+                'message' => 'Product Successfully Updated',
+            ], 200);
         } else {
             return response()->json([
                 'message' => 'Product Not Found',
@@ -79,11 +93,15 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        if (!empty($product)) {
+        if ($product->user_id !== auth()->user()->id) {
+            return response()->json([
+                'message' => 'Access Forbidden',
+            ], 403);
+        } else if (!empty($product)) {
             $product->delete();
 
             return response()->json([
-                'message' => 'Product Deleted'
+                'message' => 'Product Successfully Deleted'
             ], 200);
         } else {
             return response()->json([
