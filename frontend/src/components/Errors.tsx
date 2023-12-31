@@ -1,8 +1,7 @@
-import { IError } from '@/types/Types';
-import React, { FC } from 'react';
+import React from 'react';
 
 type TProps = {
-  error: IError;
+  error: string;
 };
 
 export const Errors = ({ error }: TProps) => {

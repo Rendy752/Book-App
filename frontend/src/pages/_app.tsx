@@ -6,6 +6,7 @@ import { getProfile } from '@/api/services';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { TUser } from '@/types/Types';
+import { Toaster } from 'react-hot-toast';
 
 export default function App({ Component, pageProps }: any) {
   const router = useRouter();
@@ -34,8 +35,7 @@ export default function App({ Component, pageProps }: any) {
     };
     checkLogin();
   }, []);
-
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
   return (
     <>
       <Navbar
@@ -44,6 +44,7 @@ export default function App({ Component, pageProps }: any) {
         user={user}
       ></Navbar>
       <main className="flex items-center justify-center p-24">
+        <Toaster position="top-center" />
         <Component {...pageProps} />
       </main>
       <Footer></Footer>

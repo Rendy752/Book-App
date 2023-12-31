@@ -5,6 +5,7 @@ import { Errors } from '@/components/Errors';
 import { IError } from '@/types/Types';
 import { setLogin } from '@/api/services';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -20,6 +21,7 @@ export default function Login() {
       await setLogin(email, password);
       setError((prev) => ({ ...prev, message: '' }));
       setIsLoading(false);
+      toast.success('Login Success');
       router.replace('/');
     } catch (e: any) {
       setIsLoading(false);

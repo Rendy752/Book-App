@@ -1,19 +1,19 @@
-import Link from 'next/link';
 import { useState } from 'react';
 import Preloader from '@/components/Preloader';
 import { Errors } from '@/components/Errors';
 import { IError } from '@/types/Types';
 import { addBook } from '@/api/services';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export default function Add() {
-  const [isbn, setIsbn] = useState(0);
+  const [isbn, setIsbn] = useState('');
   const [title, setTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [author, setAuthor] = useState('');
   const [published, setPublished] = useState('');
   const [publisher, setPublisher] = useState('');
-  const [pages, setPages] = useState(0);
+  const [pages, setPages] = useState('');
   const [description, setDescription] = useState('');
   const [website, setWebsite] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +38,7 @@ export default function Add() {
       setError((prev) => ({ ...prev, message: '' }));
       setIsLoading(false);
       router.replace('/book');
+      toast.success('Book Succesfully Added');
     } catch (e: any) {
       setIsLoading(false);
       setError((prev) => ({ ...prev, message: e }));
@@ -156,7 +157,7 @@ export default function Add() {
               type="text"
               id="pages"
               value={pages}
-              onChange={(e) => setPages(Number(e.target.value))}
+              onChange={(e) => setPages(e.target.value)}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>

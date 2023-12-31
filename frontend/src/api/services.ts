@@ -1,7 +1,5 @@
 import axios, { AxiosError } from 'axios';
-// import api from './axios';
 import headers from './axios';
-import { redirect } from 'next/navigation';
 
 const ENDPOINT = {
   register: '/api/register',
@@ -40,9 +38,7 @@ export const setRegister = async (
 };
 
 export const setLogin = async (email: string, password: string) => {
-  // console.log(api);
   try {
-    // console.log(headers);
     const res = await axios.post(
       process.env.NEXT_PUBLIC_BACKEND_URL + ENDPOINT.login,
       {
@@ -51,15 +47,11 @@ export const setLogin = async (email: string, password: string) => {
       },
       { headers },
     );
-    // console.log(res);
     localStorage.setItem('token', res.data.token);
     return Promise.resolve(res.data);
   } catch (e: unknown) {
     if (e instanceof AxiosError) {
-      // const status = e.response!.status;
-      // const code = e.code;
       const message = e.response!.data.message;
-      // console.log(e, status, code, message);
       return Promise.reject(message);
     }
     return Promise.reject(e);
@@ -72,7 +64,6 @@ export const getProfile = async () => {
       process.env.NEXT_PUBLIC_BACKEND_URL + ENDPOINT.profile,
       { headers },
     );
-    // console.log(res);
     return Promise.resolve(res.data);
   } catch (e) {
     return Promise.reject(e);
@@ -85,7 +76,6 @@ export const setLogout = async () => {
       process.env.NEXT_PUBLIC_BACKEND_URL + ENDPOINT.logout,
       { headers },
     );
-    // console.log(res);
     const checkLocalStorage =
       typeof window !== 'undefined' ? window.localStorage.getItem('token') : '';
     if (checkLocalStorage) localStorage.removeItem('token');
@@ -101,7 +91,6 @@ export const getBooks = async () => {
       process.env.NEXT_PUBLIC_BACKEND_URL + ENDPOINT.books,
       { headers },
     );
-    // console.log(res);
     return Promise.resolve(res.data);
   } catch (e) {
     return Promise.reject(e);
@@ -109,13 +98,13 @@ export const getBooks = async () => {
 };
 
 export const addBook = async (
-  isbn: number,
+  isbn: string,
   title: string,
   subtitle: string,
   author: string,
   published: string,
   publisher: string,
-  pages: number,
+  pages: string,
   description: string,
   website: string,
 ) => {
@@ -147,13 +136,13 @@ export const addBook = async (
 
 export const editBook = async (
   id: number,
-  isbn: number,
+  isbn: string,
   title: string,
   subtitle: string,
   author: string,
   published: string,
   publisher: string,
-  pages: number,
+  pages: string,
   description: string,
   website: string,
 ) => {
@@ -173,7 +162,6 @@ export const editBook = async (
       },
       { headers },
     );
-    // console.log(res);
     return Promise.resolve(res.data);
   } catch (e: unknown) {
     if (e instanceof AxiosError) {
@@ -190,7 +178,18 @@ export const getSpesificBook = async (id: number) => {
       process.env.NEXT_PUBLIC_BACKEND_URL + ENDPOINT.books + `/${id}`,
       { headers },
     );
-    // console.log(res);
+    return Promise.resolve(res.data);
+  } catch (e) {
+    return Promise.reject(e);
+  }
+};
+
+export const deleteSpesificBook = async (id: number) => {
+  try {
+    const res = await axios.delete(
+      process.env.NEXT_PUBLIC_BACKEND_URL + ENDPOINT.books + `/${id}`,
+      { headers },
+    );
     return Promise.resolve(res.data);
   } catch (e) {
     return Promise.reject(e);

@@ -4,21 +4,21 @@ import React from 'react';
 interface TProps {
   book: TBook;
   setIdBook: Function;
-  setShowEditModal: Function;
+  setShowDetailModal: Function;
 }
 
 export default function BookItem({
   book,
   setIdBook,
-  setShowEditModal,
+  setShowDetailModal,
 }: TProps) {
   // console.log(book);
   return (
-    <div className="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-gray-600 text-white dark:bg-gray-800 duration-300 hover:-translate-y-1 hover:bg-gray-800 hover:rounded-3xl">
+    <div className="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-gray-600 text-white dark:bg-gray-800 duration-300 hover:-translate-y-3 hover:bg-gray-800 hover:rounded-3xl">
       <div
         onClick={() => {
           setIdBook(book.id);
-          setShowEditModal(true);
+          setShowDetailModal(true);
         }}
         className="cursor-pointer"
       >

@@ -5,6 +5,7 @@ import { Errors } from '@/components/Errors';
 import { IError } from '@/types/Types';
 import { setRegister } from '@/api/services';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -22,6 +23,7 @@ export default function Register() {
       await setRegister(name, email, password, passwordConfirmation);
       setError((prev) => ({ ...prev, message: '' }));
       setIsLoading(false);
+      toast.success('Registration Success');
       router.replace('/login');
     } catch (e: any) {
       setIsLoading(false);
@@ -91,7 +93,7 @@ export default function Register() {
               Confirm Password
             </label>
             <input
-              type="passwordConfirmation"
+              type="password"
               id="passwordConfirmation"
               value={passwordConfirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}

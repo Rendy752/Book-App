@@ -2,19 +2,17 @@ import { getBooks } from '@/api/services';
 import BookItem from '@/components/BookItem';
 import { TBook } from '@/types/Types';
 import React, { useEffect, useState } from 'react';
-import Edit from './edit';
+import Detail from './detail';
 import Link from 'next/link';
 
 export default function Index() {
   const [books, setBooks] = useState<TBook[]>([]);
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
   const [idBook, setIdBook] = useState(0);
 
   const handleGetBooks = async () => {
     try {
       const res = await getBooks();
-      // console.log(res);
-      // console.log(data);
       setBooks(res.data);
     } catch (e: any) {
       return;
@@ -23,7 +21,6 @@ export default function Index() {
   useEffect(() => {
     handleGetBooks();
   }, []);
-  // console.log(books);
   return (
     <div className="flex flex-col gap-8 text-center">
       <div className="flex justify-center gap-5">
@@ -50,19 +47,19 @@ export default function Index() {
                 <BookItem
                   book={book}
                   setIdBook={setIdBook}
-                  setShowEditModal={setShowEditModal}
+                  setShowDetailModal={setShowDetailModal}
                 ></BookItem>
               </div>
             ))}
           </div>
         </div>
       )}
-      {showEditModal && (
-        <Edit
+      {showDetailModal && (
+        <Detail
           idBook={idBook}
-          setShowEditModal={setShowEditModal}
+          setShowDetailModal={setShowDetailModal}
           handleGetBooks={handleGetBooks}
-        ></Edit>
+        ></Detail>
       )}
     </div>
   );

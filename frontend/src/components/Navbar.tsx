@@ -4,9 +4,9 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, UserIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import SearchBar from './SearchBar';
 import { setLogout } from '@/api/services';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const navigation = [{ name: 'Books', href: '/book', current: true }];
 
@@ -32,6 +32,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn, user }: IUser) {
       await setLogout();
       console.log('logout');
       setIsLoggedIn(false);
+      toast.success('Logout Success');
       router.replace('/');
     } catch (e: any) {
       return;
@@ -84,8 +85,6 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn, user }: IUser) {
                       </div>
                     </div>
                   </div>
-
-                  <SearchBar />
                 </>
               )}
 
