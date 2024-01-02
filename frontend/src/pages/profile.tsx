@@ -9,7 +9,7 @@ export default function Profile() {
       <h1 className="text-3xl font-bold text-center text-gray-700">
         User Profile
       </h1>
-      <form className="mt-6">
+      <div className="mt-6">
         <div className="mb-4">
           <label
             htmlFor="id"
@@ -55,13 +55,13 @@ export default function Profile() {
         </div>
         <div className="mt-2">
           <button
-            type="submit"
+            onClick={() => router.replace('/book')}
             className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
           >
             Done
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

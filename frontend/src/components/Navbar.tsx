@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { setLogout } from '@/api/services';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { isLoggedIn, user } from '@/pages/_app';
 
 const navigation = [{ name: 'Books', href: '/book', current: true }];
 
@@ -21,19 +22,20 @@ type TUser = {
 };
 
 interface IUser {
-  isLoggedIn: boolean;
-  setIsLoggedIn: Function;
   user: TUser;
+  setUser: Function;
 }
-export default function Navbar({ isLoggedIn, setIsLoggedIn, user }: IUser) {
+export default function Navbar() {
   const router = useRouter();
   const handleLogout = async () => {
     try {
       await setLogout();
-      console.log('logout');
-      setIsLoggedIn(false);
+      isLoggedIn.value = false;
+      user.value.id = 0;
+      user.value.name = 'Anonymous';
+      user.value.email = '';
       toast.success('Logout Success');
-      router.replace('/');
+      router.replace('/login');
     } catch (e: any) {
       return;
     }
@@ -44,7 +46,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn, user }: IUser) {
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
-              {isLoggedIn && (
+              {isLoggedIn.value && (
                 <>
                   <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                     {/* Mobile menu button*/}
@@ -91,7 +93,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn, user }: IUser) {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start text-white">
-                  {user.name}
+                  {user.value.name}
                 </div>
                 <Menu as="div" className="relative ml-3">
                   <div>
@@ -113,7 +115,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn, user }: IUser) {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      {!isLoggedIn ? (
+                      {!isLoggedIn.value ? (
                         <Menu.Item>
                           {({ active }) => (
                             <Link
@@ -135,9 +137,9 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn, user }: IUser) {
                                 href={{
                                   pathname: '/profile',
                                   query: {
-                                    id: user.id,
-                                    name: user.name,
-                                    email: user.email,
+                                    id: user.value.id,
+                                    name: user.value.name,
+                                    email: user.value.email,
                                   },
                                 }}
                                 className={classNames(
@@ -171,7 +173,7 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn, user }: IUser) {
             </div>
           </div>
 
-          {isLoggedIn && (
+          {isLoggedIn.value && (
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 px-2 pb-3 pt-2">
                 {navigation.map((item) => (

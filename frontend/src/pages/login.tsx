@@ -3,9 +3,11 @@ import { useState } from 'react';
 import Preloader from '@/components/Preloader';
 import { Errors } from '@/components/Errors';
 import { IError } from '@/types/Types';
-import { setLogin } from '@/api/services';
+import { getProfile, setLogin } from '@/api/services';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { isLoggedIn, user } from './_app';
+import headers from '@/api/axios';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -21,8 +23,21 @@ export default function Login() {
       await setLogin(email, password);
       setError((prev) => ({ ...prev, message: '' }));
       setIsLoading(false);
+      headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+      console.log(headers);
+      const res = await getProfile();
+      // setUser((prev) => ({
+      //   ...prev,
+      //   id: res.id,
+      //   name: res.name,
+      //   email: res.email,
+      // }));
+      user.value.id = res.id;
+      user.value.name = res.name;
+      user.value.email = res.email;
+      isLoggedIn.value = true;
       toast.success('Login Success');
-      router.replace('/');
+      router.push('/book');
     } catch (e: any) {
       setIsLoading(false);
       setError((prev) => ({ ...prev, message: e }));

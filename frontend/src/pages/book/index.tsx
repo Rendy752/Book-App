@@ -4,17 +4,26 @@ import { TBook } from '@/types/Types';
 import React, { useEffect, useState } from 'react';
 import Detail from './detail';
 import Link from 'next/link';
+import Preloader from '@/components/Preloader';
+import headers from '@/api/axios';
 
 export default function Index() {
   const [books, setBooks] = useState<TBook[]>([]);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [idBook, setIdBook] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetBooks = async () => {
     try {
+      setIsLoading(true);
+      headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+      console.log(headers);
       const res = await getBooks();
+      setIsLoading(false);
       setBooks(res.data);
     } catch (e: any) {
+      console.log(e);
+      setIsLoading(false);
       return;
     }
   };
@@ -31,6 +40,7 @@ export default function Index() {
           </button>
         </Link>
       </div>
+      {isLoading && <Preloader></Preloader>}
       {!books.length ? (
         <div
           className="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"

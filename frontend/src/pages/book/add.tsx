@@ -98,7 +98,7 @@ export default function Add() {
             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
           />
         </div>
-        <div className="flex justify-between gap-2">
+        <div className="sm:flex justify-between gap-2">
           <div className="mb-2 w-full">
             <label
               htmlFor="author"
@@ -130,7 +130,7 @@ export default function Add() {
             />
           </div>
         </div>
-        <div className="flex justify-between gap-2">
+        <div className="sm:flex justify-between gap-2">
           <div className="mb-2 w-full">
             <label
               htmlFor="publisher"

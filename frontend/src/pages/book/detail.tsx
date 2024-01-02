@@ -54,6 +54,10 @@ export default function Detail({
     handleGetSpesificBook();
   }, []);
 
+  const handleEnterEdit = (e: any) => {
+    if (e.key === 'Enter') handleEditBook();
+  };
+
   const handleEditBook = async () => {
     try {
       setIsLoading(true);
@@ -119,6 +123,7 @@ export default function Detail({
                   <input
                     id="isbn"
                     value={isbn}
+                    onKeyPress={handleEnterEdit}
                     onChange={(e) => setIsbn(e.target.value)}
                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
@@ -134,6 +139,7 @@ export default function Detail({
                     type="text"
                     id="title"
                     value={title}
+                    onKeyPress={handleEnterEdit}
                     onChange={(e) => setTitle(e.target.value)}
                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
@@ -149,11 +155,12 @@ export default function Detail({
                     type="text"
                     id="subtitle"
                     value={subtitle}
+                    onKeyPress={handleEnterEdit}
                     onChange={(e) => setSubtitle(e.target.value)}
                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
-                <div className="flex justify-between gap-2">
+                <div className="sm:flex justify-between gap-2">
                   <div className="mb-2 w-full">
                     <label
                       htmlFor="author"
@@ -165,6 +172,7 @@ export default function Detail({
                       type="text"
                       id="author"
                       value={author}
+                      onKeyPress={handleEnterEdit}
                       onChange={(e) => setAuthor(e.target.value)}
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
@@ -180,12 +188,13 @@ export default function Detail({
                       type="datetime-local"
                       id="published"
                       value={published}
+                      onKeyPress={handleEnterEdit}
                       onChange={(e) => setPublished(e.target.value)}
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
                 </div>
-                <div className="flex justify-between gap-2">
+                <div className="sm:flex justify-between gap-2">
                   <div className="mb-2 w-full">
                     <label
                       htmlFor="publisher"
@@ -197,6 +206,7 @@ export default function Detail({
                       type="text"
                       id="publisher"
                       value={publisher}
+                      onKeyPress={handleEnterEdit}
                       onChange={(e) => setPublisher(e.target.value)}
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
@@ -212,6 +222,7 @@ export default function Detail({
                       type="text"
                       id="pages"
                       value={pages}
+                      onKeyPress={handleEnterEdit}
                       onChange={(e) => setPages(e.target.value)}
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
@@ -227,6 +238,7 @@ export default function Detail({
                   <textarea
                     id="description"
                     value={description}
+                    onKeyPress={handleEnterEdit}
                     onChange={(e) => setDescription(e.target.value)}
                     className="resize-none block w-full px-4 py-2 mt-2 h-48 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
@@ -242,6 +254,7 @@ export default function Detail({
                     type="text"
                     id="website"
                     value={website}
+                    onKeyPress={handleEnterEdit}
                     onChange={(e) => setWebsite(e.target.value)}
                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
