@@ -12,7 +12,6 @@ export default function BookItem({
   setIdBook,
   setShowDetailModal,
 }: TProps) {
-  // console.log(book);
   return (
     <div className="my-8 rounded shadow-lg shadow-gray-200 dark:shadow-gray-900 bg-gray-600 text-white dark:bg-gray-800 duration-300 hover:-translate-y-3 hover:bg-gray-800 hover:rounded-3xl">
       <div

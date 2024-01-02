@@ -8,6 +8,7 @@ import { setLogout } from '@/api/services';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { isLoggedIn, user } from '@/pages/_app';
+import Image from 'next/image';
 
 const navigation = [{ name: 'Books', href: '/book', current: true }];
 
@@ -15,16 +16,6 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
-type TUser = {
-  id: number;
-  name: string;
-  email: string;
-};
-
-interface IUser {
-  user: TUser;
-  setUser: Function;
-}
 export default function Navbar() {
   const router = useRouter();
   const handleLogout = async () => {

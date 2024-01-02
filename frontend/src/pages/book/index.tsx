@@ -17,12 +17,10 @@ export default function Index() {
     try {
       setIsLoading(true);
       headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
-      console.log(headers);
       const res = await getBooks();
       setIsLoading(false);
       setBooks(res.data);
     } catch (e: any) {
-      console.log(e);
       setIsLoading(false);
       return;
     }

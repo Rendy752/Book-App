@@ -24,14 +24,7 @@ export default function Login() {
       setError((prev) => ({ ...prev, message: '' }));
       setIsLoading(false);
       headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
-      console.log(headers);
       const res = await getProfile();
-      // setUser((prev) => ({
-      //   ...prev,
-      //   id: res.id,
-      //   name: res.name,
-      //   email: res.email,
-      // }));
       user.value.id = res.id;
       user.value.name = res.name;
       user.value.email = res.email;

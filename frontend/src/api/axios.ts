@@ -4,7 +4,7 @@ const headers = {
   Authorization: `Bearer ${
     typeof window !== 'undefined' ? window.localStorage.getItem('token') : ''
   }`,
-  'Access-Control-Allow-Origin': 'http://127.0.0.1:3000',
+  'Access-Control-Allow-Origin': 'https://rendyp-book.vercel.app',
 };
 
 export default headers;
